@@ -8,7 +8,8 @@ clc;
 dbstop if error;
 
 %--- Create a configuration to simulate
-
+figure(1)
+set(gcf,'position',[50/0.277 50/0.277 200/0.277 200/0.277]);
 config = setup_config( 75, 100, 100, 5 );
 
 %--- Create data structures for making a small movie of the simulation
@@ -40,10 +41,10 @@ while T > 0
   T = T - dt_wanted;
   
   %figure(1);
-  %clf;
+  clf;
   hold on;
   draw_config( config );
-  %draw_info( config, info );
+  draw_info( config, info );
   hold off;
   axis square;
   

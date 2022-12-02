@@ -49,9 +49,9 @@ for i=M+1:M+N
     idx = info.O(:,1)==i | info.O(:,2)==i;
     DD = D(idx==1);
     r = min( DD(DD>0) );
-%     if r<1
-%         r = 2*r;
-%     end
+    if r<1
+        r = 2*r;
+    end
     config.R(i) = r;
     config.W(i) = 1.0/r/r;
     config.Fy(i) = -9.81*r*r;

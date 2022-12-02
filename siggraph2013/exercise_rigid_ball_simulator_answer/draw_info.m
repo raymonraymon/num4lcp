@@ -15,9 +15,9 @@ for i=1:N
     x2 = config.X(o(2) );
     y2 = config.Y(o(2) );
     
-    circle( [ x y], 1.0, 100, 'm-' );    
-    plot( [x x+nx], [y y+ny], 'r', 'LineWidth', 2 );
-    plot( [x1 x2], [y1 y2] , 'g', 'LineWidth', 1);
+    %circle( [ x y], 1.0, 100, 'm-' );                  % contact point
+    %plot( [x x+nx], [y y+ny], 'r', 'LineWidth', 2 );   % contact depth
+    plot( [x1 x2], [y1 y2] , 'g', 'LineWidth', 1);      % contact direction
     end
 end
 end

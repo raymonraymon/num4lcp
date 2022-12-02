@@ -9,7 +9,7 @@ function [ info ] = collision_detection( config )
 
 
 T = delaunayTriangulation(config.X,config.Y);
-triplot(T)
+%triplot(T)
 O = edges(T);
 
 %--- We need to filter out all entries between fixed objects!
