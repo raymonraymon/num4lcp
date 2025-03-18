@@ -15,6 +15,7 @@ O = edges(T);
 %--- We need to filter out all entries between fixed objects!
 Ew =  config.W( O(:,1))+config.W( O(:,2));
 O = O( Ew>0,: );
+Pn = zeros(size(O,1),1);
 
 %--- Temporaries for more readable  code
 Xv = config.X;
@@ -43,4 +44,4 @@ w2 = R1 ./ (R1+R2);
 X = w1.*Xv(O(:,1)) + w2.*Xv(O(:,2)); 
 Y = w1.*Yv(O(:,1)) + w2.*Yv(O(:,2)); 
 
-info = struct( 'X', X, 'Y', Y, 'D', D, 'Nx', Nx, 'Ny', Ny, 'O', O );
+info = struct( 'X', X, 'Y', Y, 'D', D, 'Nx', Nx, 'Ny', Ny, 'O', O, 'Pn', Pn);
