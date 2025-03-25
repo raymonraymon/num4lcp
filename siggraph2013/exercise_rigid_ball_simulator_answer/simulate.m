@@ -35,7 +35,11 @@ if( C>0)
   W = diag( [w; w] );
   A = J*W*J';
   b = J*u + dt*J*W*[Fx; Fy];
-  lambda = solve_lcp(A,b,lambda);
+  %lambda = solve_lcp(A,b,lambda);
+  max_iter = 50;
+  tol_rel  = 0.0;
+  tol_abs  = 0.0;
+  [lambda] = pgs(A, b, lambda, max_iter, tol_rel, tol_abs, true);
 end
 
 %--- Compute the resulting contact forces in body-space

@@ -28,20 +28,21 @@ C      = length(D);   % Number of contacts
 
 k_allowedPenetration = 0.001;
 k_biasFactor = 0.2;
+accumulateImpulses = 1;
 massNormal= zeros(C,1);
 if( C>0)
     for c=1:C  %prestep
         a = O(c,1);
         b = O(c,2);
-        %        r1 = [cX(c)-X(a),cY(c)-Y(a)];
-        %        r2 = [cX(c)-X(b),cY(c)-Y(b)];
+        r1 = [cX(c)-X(a),cY(c)-Y(a)];
+        r2 = [cX(c)-X(b),cY(c)-Y(b)];
         normal = -[Nx(c),Ny(c)];
-        %       rn1 = dot(r1,normal);
-        %       rn2 = dot(r2,normal);
+        rn1 = dot(r1,normal);
+        rn2 = dot(r2,normal);
         kNormal = w(a)+w(b);
-        %         invI1 = 2*w(a)/R(a)/R(a);
-        %         invI2 = 2*w(b)/R(b)/R(b);
-        %         kNormal = kNormal+invI1*(dot(r1,r1)-rn1*rn1)+invI2*(dot(r2,r2)-rn2*rn2);
+        invI1 = 2*w(a)/R(a)/R(a);
+        invI2 = 2*w(b)/R(b)/R(b);
+        kNormal = kNormal+invI1*(dot(r1,r1)-rn1*rn1)+invI2*(dot(r2,r2)-rn2*rn2);
         massNormal(c) = 1/kNormal;
 
         %accumulateImpulses
@@ -64,9 +65,13 @@ if( C>0)
         dPn = massNormal(c)*(-vn + bias);
 
         %accumulateImpulses
-        Pn0 = Pn(c);
-        Pn(c) = max(Pn0 + dPn,0.0);
-        dPn = Pn(c)-Pn0;
+        if accumulateImpulses
+            Pn0 = Pn(c);
+            Pn(c) = max(Pn0 + dPn,0.0);
+            dPn = Pn(c)-Pn0;
+        else
+            dPn = max(dPn, 0.0);
+        end
 
         Pntemp = dPn*normal;
         Vx(a) = Vx(a) - w(a).*(Pntemp(1));
